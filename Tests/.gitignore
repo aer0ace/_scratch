@@ -1,0 +1,6 @@
+out/
+
+*.vcxproj.user
+*.sdf
+*.opensdf
+*.suo

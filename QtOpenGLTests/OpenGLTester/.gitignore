@@ -1,0 +1,10 @@
+Win32/
+x64/
+OpenGLTester/Debug/
+OpenGLTester/GeneratedFiles/
+OpenGLTester/x64/
+
+*.vcxproj.user
+*.sdf
+*.opensdf
+*.suo
