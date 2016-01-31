@@ -3,6 +3,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_opengltester.h"
+#include <ViewportWidget.h>
 
 class OpenGLTester : public QMainWindow
 {
@@ -14,6 +15,8 @@ public:
 
 private:
 	Ui::OpenGLTesterClass ui;
+
+	ViewportWidget* mViewport;
 };
 
 #endif // OPENGLTESTER_H

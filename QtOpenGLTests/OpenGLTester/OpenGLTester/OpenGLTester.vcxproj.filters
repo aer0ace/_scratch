@@ -50,6 +50,18 @@
     <ClCompile Include="GeneratedFiles\qrc_opengltester.cpp">
       <Filter>Generated Files</Filter>
     </ClCompile>
+    <ClCompile Include="ViewportWidget.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ViewportWidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ViewportWidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="GridObject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="opengltester.h">
@@ -61,10 +73,16 @@
     <CustomBuild Include="opengltester.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="ViewportWidget.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_opengltester.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GridObject.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
