@@ -8,7 +8,9 @@
 class GridObject
 {
 public:
-	GridObject();
+	static const int32_t kDefaultGridSize = 2;
+
+	GridObject(int32_t gridSize = kDefaultGridSize);
 	const GLfloat *constData() const { return m_data.constData(); }
 	int count() const { return m_count; }
 	int vertexCount() const { return m_count / 6; }
@@ -21,6 +23,8 @@ private:
 
 	QVector<GLfloat> m_data;
 	int m_count;
+
+	int32_t mSize;
 };
 
 #endif // GRIDOBJECT_H
