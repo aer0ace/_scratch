@@ -40,6 +40,9 @@ private:
 
 	QMatrix4x4 mProjection;
 	QMatrix4x4 mCamera;
+	QPoint mLastPos;
+	float mCamTilt;
+	float mCamOrbit;
 	QMatrix4x4 mWorld;
 
 	QOpenGLVertexArrayObject mVAO;

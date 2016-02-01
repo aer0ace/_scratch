@@ -2,6 +2,7 @@
 #include <QOpenGLFunctions>
 #include <QOpenGLShaderProgram>
 #include <QCoreApplication>
+#include <QMouseEvent>
 
 static const char *vertexShaderSourceCore =
 "#version 150\n"
@@ -61,6 +62,8 @@ static const char *fragmentShaderSource =
 
 ViewportWidget::ViewportWidget(QWidget *parent)
 	: QOpenGLWidget(parent)
+	, mCamTilt(0.0f)
+	, mCamOrbit(0.0f)
 {
 	mCore = QCoreApplication::arguments().contains(QStringLiteral("--coreprofile"));
 	// --transparent causes the clear color to be transparent. Therefore, on systems that
@@ -146,7 +149,7 @@ void ViewportWidget::initializeGL()
 
 	// Our camera never changes in this example.
 	mCamera.setToIdentity();
-	mCamera.translate(0, 0, -1);
+	mCamera.translate(0, -0.5f, -1);
 
 	//// Light position is fixed.
 	mShaderProgram->setUniformValue(mLocLightPosition, QVector3D(0, 0, 70));
@@ -177,12 +180,17 @@ void ViewportWidget::paintGL()
 	////    m_world.rotate(m_zRot / 16.0f, 0, 0, 1);
 	////m_world.rotate(mRot / 16.0f, 0, 1, 0);
 	//m_world.rotate(mRot / 16.0f, 1, 0, 0);
-	mWorld.rotate(15.0f, 1, 0, 0);
+	//mWorld.rotate(15.0f, 1, 0, 0);
+
+	mCamera.setToIdentity();
+	mCamera.translate(0, 0, -3);
+	mCamera.rotate(mCamTilt, QVector3D(1.0f, 0.0f, 0.0f));
+	mCamera.rotate(mCamOrbit, QVector3D(0.0f, 1.0f, 0.0f));
 	
 	QOpenGLVertexArrayObject::Binder vaoBinder(&mVAO);
 	mShaderProgram->bind();
 	mShaderProgram->setUniformValue(mLocProjectionMatrix, mProjection);
-	mShaderProgram->setUniformValue(mLocMvMatrix, mCamera * mWorld);
+	mShaderProgram->setUniformValue(mLocMvMatrix, mCamera /** mWorld*/);
 	QMatrix3x3 normalMatrix = mWorld.normalMatrix();
 	mShaderProgram->setUniformValue(mLocNormalMatrix, normalMatrix);
 
@@ -194,7 +202,7 @@ void ViewportWidget::paintGL()
 
 	mShaderProgram->release();
 
-	//update();	// force loop
+	update();	// force loop
 }
 
 
@@ -208,10 +216,21 @@ void ViewportWidget::resizeGL(int w, int h)
 void ViewportWidget::mousePressEvent(QMouseEvent *event)
 {
 	printf("Mouse Press\n");
+	mLastPos = event->pos();
 }
 
 void ViewportWidget::mouseMoveEvent(QMouseEvent *event)
 {
+	float multiplier = 0.1f;
+
+	int dx = event->x() - mLastPos.x();
+	int dy = event->y() - mLastPos.y();
+
+	mCamTilt += multiplier * dy;
+	mCamOrbit += multiplier * dx;
+
+	mLastPos = event->pos();
+
 	printf("Mouse Move\n");
 }
 
