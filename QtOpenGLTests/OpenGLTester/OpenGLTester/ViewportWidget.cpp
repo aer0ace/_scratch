@@ -72,6 +72,8 @@ ViewportWidget::ViewportWidget(QWidget *parent)
 	mTransparent = QCoreApplication::arguments().contains(QStringLiteral("--transparent"));
 	if (mTransparent)
 		setAttribute(Qt::WA_TranslucentBackground);
+
+	setAutoFillBackground(false);
 }
 
 ViewportWidget::~ViewportWidget()
@@ -192,14 +194,22 @@ void ViewportWidget::paintGL()
 void ViewportWidget::DrawGL()
 {
 	QPainter painter(this);
-	this->setAutoFillBackground(false);
-	//painter.begin(this);
 
 	painter.beginNativePainting();
 	
+
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+	glPushAttrib(GL_ALL_ATTRIB_BITS);
+	glMatrixMode(GL_PROJECTION);
+	glPushMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPushMatrix();
+
 	glEnable(GL_DEPTH_TEST);
+
 	glEnable(GL_CULL_FACE);
+
 
 	mWorld.setToIdentity();
 	////    m_world.rotate(180.0f - (m_xRot / 16.0f), 1, 0, 0);
@@ -220,30 +230,35 @@ void ViewportWidget::DrawGL()
 	mShaderProgram->setUniformValue(mLocMvMatrix, mCamera /** mWorld*/);
 	QMatrix3x3 normalMatrix = mWorld.normalMatrix();
 	mShaderProgram->setUniformValue(mLocNormalMatrix, normalMatrix);
-
+#if 1
 	////glDrawArrays(GL_TRIANGLES, 0, m_logo.vertexCount());
 	////glDrawArrays(GL_LINES, 0, m_logo.vertexCount());
 	////glDrawArrays(GL_TRIANGLES, 0, mBasicShape.vertexCount());
 	//glDrawArrays(GL_LINES, 0, mBasicShape.vertexCount());
 	glDrawArrays(GL_LINES, 0, mGridObject.vertexCount());
+#endif
 
+	vaoBinder.release();
 	mShaderProgram->release();
 
 	//update();	// force loop
 
 
+	//glDisable(GL_DEPTH_TEST);
+
+	glMatrixMode(GL_PROJECTION);
+	glPopMatrix();
+	glMatrixMode(GL_MODELVIEW);
+	glPopMatrix();
+	glPopAttrib();
+
 	painter.endNativePainting();
-
-
 
 	//painter.drawText(rect(), Qt::AlignCenter, "First");
 
 	painter.setPen(Qt::red);
 	painter.setFont(QFont("Arial", 24));
 	painter.drawText(rect(), Qt::AlignCenter, "Test");
-
-	//painter.end();
-
 }
 
 
