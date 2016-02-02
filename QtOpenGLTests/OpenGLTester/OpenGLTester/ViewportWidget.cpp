@@ -2,6 +2,7 @@
 #include <QOpenGLFunctions>
 #include <QOpenGLShaderProgram>
 #include <QCoreApplication>
+#include <QMouseEvent>
 #include <QPainter>
 
 static const char *vertexShaderSourceCore =
@@ -62,6 +63,8 @@ static const char *fragmentShaderSource =
 
 ViewportWidget::ViewportWidget(QWidget *parent)
 	: QOpenGLWidget(parent)
+	, mCamTilt(0.0f)
+	, mCamOrbit(0.0f)
 {
 	mCore = QCoreApplication::arguments().contains(QStringLiteral("--coreprofile"));
 	// --transparent causes the clear color to be transparent. Therefore, on systems that
@@ -112,6 +115,13 @@ void ViewportWidget::initializeGL()
 	// can recreate all resources.
 	connect(context(), &QOpenGLContext::aboutToBeDestroyed, this, &ViewportWidget::Cleanup);
 
+	//QSurfaceFormat  format;
+	//format.setSamples(4);
+	//format.setDepthBufferSize(24);
+	//format.setStencilBufferSize(8);
+	//format.setProfile(QSurfaceFormat::OpenGLContextProfile::CompatibilityProfile);
+	//QSurfaceFormat::setDefaultFormat(format);
+
 	//initializeOpenGLFunctions();
 	glClearColor(0.9f, 0.9f, 0.9f, mTransparent ? 0 : 1);
 	glLineWidth(1.0f);
@@ -147,7 +157,7 @@ void ViewportWidget::initializeGL()
 
 	// Our camera never changes in this example.
 	mCamera.setToIdentity();
-	mCamera.translate(0, 0, -1);
+	mCamera.translate(0, -0.5f, -1);
 
 	//// Light position is fixed.
 	mShaderProgram->setUniformValue(mLocLightPosition, QVector3D(0, 0, 70));
@@ -166,16 +176,27 @@ void ViewportWidget::SetupVertexAttributes()
 	mVBO.release();
 }
 
-void ViewportWidget::paintEvent(QPaintEvent* paintEvent)
-{
-	QPainter painter(this);
-	painter.setPen(Qt::blue);
-	painter.setFont(QFont("Arial", 24));
-	painter.drawText(rect(), Qt::AlignCenter, "Test");
-}
+//void ViewportWidget::paintEvent(QPaintEvent* paintEvent)
+//{
+//	QPainter painter(this);
+//	painter.setPen(Qt::blue);
+//	painter.setFont(QFont("Arial", 24));
+//	painter.drawText(rect(), Qt::AlignCenter, "Test");
+//}
 
 void ViewportWidget::paintGL()
 {
+	DrawGL();
+}
+
+void ViewportWidget::DrawGL()
+{
+	QPainter painter(this);
+	this->setAutoFillBackground(false);
+	//painter.begin(this);
+
+	painter.beginNativePainting();
+	
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
@@ -186,12 +207,17 @@ void ViewportWidget::paintGL()
 	////    m_world.rotate(m_zRot / 16.0f, 0, 0, 1);
 	////m_world.rotate(mRot / 16.0f, 0, 1, 0);
 	//m_world.rotate(mRot / 16.0f, 1, 0, 0);
-	mWorld.rotate(15.0f, 1, 0, 0);
-	
+	//mWorld.rotate(15.0f, 1, 0, 0);
+
+	mCamera.setToIdentity();
+	mCamera.translate(0, 0, -3);
+	mCamera.rotate(mCamTilt, QVector3D(1.0f, 0.0f, 0.0f));
+	mCamera.rotate(mCamOrbit, QVector3D(0.0f, 1.0f, 0.0f));
+
 	QOpenGLVertexArrayObject::Binder vaoBinder(&mVAO);
 	mShaderProgram->bind();
 	mShaderProgram->setUniformValue(mLocProjectionMatrix, mProjection);
-	mShaderProgram->setUniformValue(mLocMvMatrix, mCamera * mWorld);
+	mShaderProgram->setUniformValue(mLocMvMatrix, mCamera /** mWorld*/);
 	QMatrix3x3 normalMatrix = mWorld.normalMatrix();
 	mShaderProgram->setUniformValue(mLocNormalMatrix, normalMatrix);
 
@@ -204,6 +230,20 @@ void ViewportWidget::paintGL()
 	mShaderProgram->release();
 
 	//update();	// force loop
+
+
+	painter.endNativePainting();
+
+
+
+	//painter.drawText(rect(), Qt::AlignCenter, "First");
+
+	painter.setPen(Qt::red);
+	painter.setFont(QFont("Arial", 24));
+	painter.drawText(rect(), Qt::AlignCenter, "Test");
+
+	//painter.end();
+
 }
 
 
@@ -211,21 +251,38 @@ void ViewportWidget::paintGL()
 void ViewportWidget::resizeGL(int w, int h)
 {
 	mProjection.setToIdentity();
-	mProjection.perspective(45.0f, GLfloat(w) / h, 0.01f, 100.0f);
+	mProjection.perspective(45.0f, GLfloat(w) / h, 0.001f, 100.0f);
 }
 
 void ViewportWidget::mousePressEvent(QMouseEvent *event)
 {
 	printf("Mouse Press\n");
+	mLastPos = event->pos();
+
+	update();
 }
 
 void ViewportWidget::mouseMoveEvent(QMouseEvent *event)
 {
+	float multiplier = 0.1f;
+
+	int dx = event->x() - mLastPos.x();
+	int dy = event->y() - mLastPos.y();
+
+	mCamTilt += multiplier * dy;
+	mCamOrbit += multiplier * dx;
+
+	mLastPos = event->pos();
+
 	printf("Mouse Move\n");
+
+	update();
 }
 
 void ViewportWidget::mouseReleaseEvent(QMouseEvent * event)
 {
 	printf("Mouse Release\n");
+
+	update();
 }
 
