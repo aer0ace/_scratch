@@ -29,7 +29,7 @@ void GridObject::Build()
 		add(QVector3D(zMin, 0.0f, xOffset), kNormal);
 		add(QVector3D(zMax, 0.0f, xOffset), kNormal);
 
-		xOffset += 0.1f;
+		xOffset += 1.0f;
 	}
 }
 

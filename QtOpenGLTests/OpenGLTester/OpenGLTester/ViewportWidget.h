@@ -10,6 +10,8 @@
 
 QT_FORWARD_DECLARE_CLASS(QOpenGLShaderProgram)
 
+float clamp(float n, float lower, float upper);
+
 class ViewportWidget : public QOpenGLWidget
 {
 	Q_OBJECT
@@ -31,6 +33,7 @@ protected:
 	void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 	void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 	void mouseMoveEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
+	void wheelEvent(QWheelEvent *event) Q_DECL_OVERRIDE;
 
 private:
 	void SetupVertexAttributes();
@@ -46,6 +49,7 @@ private:
 	QPoint mLastPos;
 	float mCamTilt;
 	float mCamOrbit;
+	float mZoom;
 	QMatrix4x4 mWorld;
 
 	QOpenGLVertexArrayObject mVAO;

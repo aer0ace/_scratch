@@ -65,6 +65,7 @@ ViewportWidget::ViewportWidget(QWidget *parent)
 	: QOpenGLWidget(parent)
 	, mCamTilt(0.0f)
 	, mCamOrbit(0.0f)
+	, mZoom(3.0f)
 {
 	mCore = QCoreApplication::arguments().contains(QStringLiteral("--coreprofile"));
 	// --transparent causes the clear color to be transparent. Therefore, on systems that
@@ -217,7 +218,7 @@ void ViewportWidget::DrawGL()
 	//mWorld.rotate(15.0f, 1, 0, 0);
 
 	mCamera.setToIdentity();
-	mCamera.translate(0, 0, -3);
+	mCamera.translate(0, 0, -mZoom);
 	mCamera.rotate(mCamTilt, QVector3D(1.0f, 0.0f, 0.0f));
 	mCamera.rotate(mCamOrbit, QVector3D(0.0f, 1.0f, 0.0f));
 
@@ -290,5 +291,21 @@ void ViewportWidget::mouseReleaseEvent(QMouseEvent * event)
 	printf("Mouse Release\n");
 
 	update();
+}
+
+void ViewportWidget::wheelEvent(QWheelEvent *event)
+{
+	const float kMin = 0.5f;
+	const float kMax = 50.0f;
+
+	mZoom -= 0.01f * event->delta();
+	mZoom = clamp(mZoom, kMin, kMax);
+
+	update();
+}
+
+float clamp(float n, float lower, float upper)
+{
+	return std::max(lower, std::min(n, upper));
 }
 
