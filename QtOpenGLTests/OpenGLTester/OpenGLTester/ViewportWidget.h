@@ -26,6 +26,7 @@ public:
 protected:
 	void initializeGL() Q_DECL_OVERRIDE;
 	void paintGL() Q_DECL_OVERRIDE;
+	void paintEvent(QPaintEvent*) Q_DECL_OVERRIDE;
 	void resizeGL(int width, int height) Q_DECL_OVERRIDE;
 	void mousePressEvent(QMouseEvent *event) Q_DECL_OVERRIDE;
 	void mouseReleaseEvent(QMouseEvent *event) Q_DECL_OVERRIDE;

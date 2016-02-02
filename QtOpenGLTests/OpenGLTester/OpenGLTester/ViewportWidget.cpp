@@ -2,6 +2,7 @@
 #include <QOpenGLFunctions>
 #include <QOpenGLShaderProgram>
 #include <QCoreApplication>
+#include <QPainter>
 
 static const char *vertexShaderSourceCore =
 "#version 150\n"
@@ -163,6 +164,14 @@ void ViewportWidget::SetupVertexAttributes()
 	f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), 0);
 	f->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), reinterpret_cast<void *>(3 * sizeof(GLfloat)));
 	mVBO.release();
+}
+
+void ViewportWidget::paintEvent(QPaintEvent* paintEvent)
+{
+	QPainter painter(this);
+	painter.setPen(Qt::blue);
+	painter.setFont(QFont("Arial", 24));
+	painter.drawText(rect(), Qt::AlignCenter, "Test");
 }
 
 void ViewportWidget::paintGL()
