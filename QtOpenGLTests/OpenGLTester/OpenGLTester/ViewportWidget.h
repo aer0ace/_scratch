@@ -7,6 +7,7 @@
 #include <qopenglwidget>
 #include <QMatrix4x4>
 #include <GridObject.h>
+#include <Camera.h>
 
 QT_FORWARD_DECLARE_CLASS(QOpenGLShaderProgram)
 
@@ -45,11 +46,8 @@ private:
 	bool mTransparent;
 
 	QMatrix4x4 mProjection;
-	QMatrix4x4 mCamera;
+	Camera mCamera;
 	QPoint mLastPos;
-	float mCamTilt;
-	float mCamOrbit;
-	float mZoom;
 	QMatrix4x4 mWorld;
 
 	QOpenGLVertexArrayObject mVAO;

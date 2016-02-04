@@ -178,6 +178,7 @@
     </ClCompile>
     <ClCompile Include="GridObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ObjectUtils.cpp" />
     <ClCompile Include="opengltester.cpp" />
     <ClCompile Include="ViewportWidget.cpp" />
   </ItemGroup>
@@ -242,6 +243,7 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ObjectUtils.h" />
     <CustomBuild Include="Camera.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
       </Message>

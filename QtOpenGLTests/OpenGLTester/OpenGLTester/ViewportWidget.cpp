@@ -63,9 +63,9 @@ static const char *fragmentShaderSource =
 
 ViewportWidget::ViewportWidget(QWidget *parent)
 	: QOpenGLWidget(parent)
-	, mCamTilt(0.0f)
-	, mCamOrbit(0.0f)
-	, mZoom(3.0f)
+	//, mCamTilt(0.0f)
+	//, mCamOrbit(0.0f)
+	//, mZoom(3.0f)
 {
 	mCore = QCoreApplication::arguments().contains(QStringLiteral("--coreprofile"));
 	// --transparent causes the clear color to be transparent. Therefore, on systems that
@@ -118,13 +118,6 @@ void ViewportWidget::initializeGL()
 	// can recreate all resources.
 	connect(context(), &QOpenGLContext::aboutToBeDestroyed, this, &ViewportWidget::Cleanup);
 
-	//QSurfaceFormat  format;
-	//format.setSamples(4);
-	//format.setDepthBufferSize(24);
-	//format.setStencilBufferSize(8);
-	//format.setProfile(QSurfaceFormat::OpenGLContextProfile::CompatibilityProfile);
-	//QSurfaceFormat::setDefaultFormat(format);
-
 	//initializeOpenGLFunctions();
 	glClearColor(0.9f, 0.9f, 0.9f, mTransparent ? 0 : 1);
 	glLineWidth(1.0f);
@@ -158,9 +151,7 @@ void ViewportWidget::initializeGL()
 	// Store the vertex attribute bindings for the program.
 	SetupVertexAttributes();
 
-	// Our camera never changes in this example.
-	mCamera.setToIdentity();
-	mCamera.translate(0, -0.5f, -1);
+	mCamera.SetPosition(QVector3D(0, -0.5f, -1));
 
 	//// Light position is fixed.
 	mShaderProgram->setUniformValue(mLocLightPosition, QVector3D(0, 0, 70));
@@ -217,15 +208,13 @@ void ViewportWidget::DrawGL()
 	//m_world.rotate(mRot / 16.0f, 1, 0, 0);
 	//mWorld.rotate(15.0f, 1, 0, 0);
 
-	mCamera.setToIdentity();
-	mCamera.translate(0, 0, -mZoom);
-	mCamera.rotate(mCamTilt, QVector3D(1.0f, 0.0f, 0.0f));
-	mCamera.rotate(mCamOrbit, QVector3D(0.0f, 1.0f, 0.0f));
+	QMatrix4x4 cameraTransform = mCamera.GetTransform();
 
 	QOpenGLVertexArrayObject::Binder vaoBinder(&mVAO);
 	mShaderProgram->bind();
 	mShaderProgram->setUniformValue(mLocProjectionMatrix, mProjection);
-	mShaderProgram->setUniformValue(mLocMvMatrix, mCamera /** mWorld*/);
+	//mShaderProgram->setUniformValue(mLocMvMatrix, mCamera /** mWorld*/);
+	mShaderProgram->setUniformValue(mLocMvMatrix, cameraTransform);
 	QMatrix3x3 normalMatrix = mWorld.normalMatrix();
 	mShaderProgram->setUniformValue(mLocNormalMatrix, normalMatrix);
 
@@ -276,9 +265,9 @@ void ViewportWidget::mouseMoveEvent(QMouseEvent *event)
 	int dx = event->x() - mLastPos.x();
 	int dy = event->y() - mLastPos.y();
 
-	mCamTilt += multiplier * dy;
-	mCamOrbit += multiplier * dx;
-
+	mCamera.Tilt(multiplier * dy);
+	mCamera.Orbit(multiplier * dx);
+	
 	mLastPos = event->pos();
 
 	printf("Mouse Move\n");
@@ -295,17 +284,10 @@ void ViewportWidget::mouseReleaseEvent(QMouseEvent * event)
 
 void ViewportWidget::wheelEvent(QWheelEvent *event)
 {
-	const float kMin = 0.5f;
-	const float kMax = 50.0f;
-
-	mZoom -= 0.01f * event->delta();
-	mZoom = clamp(mZoom, kMin, kMax);
+	mCamera.Zoom(0.01f * event->delta());
 
 	update();
 }
 
-float clamp(float n, float lower, float upper)
-{
-	return std::max(lower, std::min(n, upper));
-}
+
 
