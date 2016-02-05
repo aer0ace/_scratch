@@ -66,6 +66,7 @@ ViewportWidget::ViewportWidget(QWidget *parent)
 	//, mCamTilt(0.0f)
 	//, mCamOrbit(0.0f)
 	//, mZoom(3.0f)
+	, mButtons(Qt::MouseButton::NoButton)
 {
 	mCore = QCoreApplication::arguments().contains(QStringLiteral("--coreprofile"));
 	// --transparent causes the clear color to be transparent. Therefore, on systems that
@@ -255,6 +256,7 @@ void ViewportWidget::mousePressEvent(QMouseEvent *event)
 	printf("Mouse Press\n");
 	mLastPos = event->pos();
 
+	mButtons |= event->buttons();
 	update();
 }
 
@@ -265,8 +267,18 @@ void ViewportWidget::mouseMoveEvent(QMouseEvent *event)
 	int dx = event->x() - mLastPos.x();
 	int dy = event->y() - mLastPos.y();
 
-	mCamera.Tilt(multiplier * dy);
-	mCamera.Orbit(multiplier * dx);
+	if (mButtons & Qt::MouseButton::LeftButton)
+	{
+
+		mCamera.Tilt(multiplier * dy);
+		mCamera.Orbit(multiplier * dx);
+	}
+	else if (mButtons & Qt::MouseButton::MidButton)
+	{
+		float kPanMult = 0.01f;
+		mCamera.Pan(kPanMult * multiplier * dx, kPanMult * multiplier * dy);
+	}
+
 	
 	mLastPos = event->pos();
 
@@ -278,6 +290,8 @@ void ViewportWidget::mouseMoveEvent(QMouseEvent *event)
 void ViewportWidget::mouseReleaseEvent(QMouseEvent * event)
 {
 	printf("Mouse Release\n");
+
+	mButtons &= ~event->buttons();
 
 	update();
 }

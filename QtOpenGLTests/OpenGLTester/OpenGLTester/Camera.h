@@ -9,6 +9,23 @@
 
 using namespace Utils;
 
+// Orthonormal Basis
+class Basis
+{
+public:
+	Basis();
+	void Set(const QVector3D& dirVector, const QVector3D& upVectorHint);
+
+	void Get(QVector3D& forward, QVector3D& right, QVector3D& up);
+
+private:
+	void OrthoNormalize(const QVector3D& upVectorHint);
+
+	QVector3D mForward;
+	QVector3D mUp;
+	QVector3D mRight;
+};
+
 class Camera
 {
 public:
@@ -23,7 +40,7 @@ public:
 
 	const QMatrix4x4& GetTransform() { return mTransform; };
 
-	void Pan(const QVector3D& deltaVector);
+	void Pan(const float& screenX, const float& screenY);
 	void Tilt(float deltaAngle);
 	void Orbit(float deltaAngle);
 	void Zoom(float deltaDistance);
@@ -34,12 +51,14 @@ private:
 	QVector3D mPosition;
 	QVector3D mTarget;
 
+	bool mHasTarget;
+
 	float mCamTilt;
 	float mCamOrbit;
 	float mZoom;
 	QMatrix4x4 mTransform;
 
-	PosQuat mPosQuat;
+	//PosQuat mPosQuat;
 	
 };
 

@@ -61,6 +61,7 @@ private:
 	int mLocNormalMatrix;
 	int mLocLightPosition;
 
+	Qt::MouseButtons mButtons;
 
 	GridObject mGridObject;
 };
