@@ -273,7 +273,6 @@ void ViewportWidget::mouseMoveEvent(QMouseEvent *event)
 
 	if (mButtons & Qt::MouseButton::LeftButton)
 	{
-
 		mCamera.Tilt(multiplier * dy);
 		mCamera.Orbit(multiplier * dx);
 	}
@@ -296,7 +295,7 @@ void ViewportWidget::mouseReleaseEvent(QMouseEvent * event)
 {
 	printf("Mouse Release\n");
 
-	mButtons &= ~event->buttons();
+	mButtons &= ~Qt::AllButtons;
 
 	update();
 }

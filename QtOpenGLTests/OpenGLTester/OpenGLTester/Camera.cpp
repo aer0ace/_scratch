@@ -91,15 +91,13 @@ void Camera::UpdateTransform()
 	//QVector3D dir = mPosition - mTarget;	// reversed for left
 	//dir.normalize();
 
-	QVector3D upAxis(0.0f, 1.0f, 0.0f);
-
 	//Vector3D right = QVector3D::crossProduct(upAxis, dir);
 	//right.normalize();
 
 	//QVector3D up = QVector3D::crossProduct(dir, right);
 	//up.normalize();
 	mTransform.setToIdentity();
-	mTransform.lookAt(mPosition, mTarget, upAxis);
+	mTransform.lookAt(mPosition, mTarget, kAxisUp);
 
 #if 0
 	mTransform.setToIdentity();
@@ -118,10 +116,12 @@ void Camera::Pan(const float& screenX, const float& screenY)
 	up.normalize();
 	right.normalize();
 
-	qDebug("Pan: %.3f %.3f", screenX, screenY);
+	//qDebug("Pan: %.3f %.3f", screenX, screenY);
 
 	mPosition += screenY * up;
 	mPosition += screenX * right;
+
+	qDebug("pos: %.3f %.3f %.3f", mPosition.x(), mPosition.y(), mPosition.z());
 
 	mTarget += screenY * up;
 	mTarget += screenX * right;
