@@ -115,6 +115,9 @@ void Camera::Pan(const float& screenX, const float& screenY)
 	QVector3D up = kAxisUp * mTransform;
 	QVector3D right = kAxisRight * mTransform;
 
+	up.normalize();
+	right.normalize();
+
 	qDebug("Pan: %.3f %.3f", screenX, screenY);
 
 	mPosition += screenY * up;

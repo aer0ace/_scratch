@@ -255,6 +255,7 @@ void ViewportWidget::mousePressEvent(QMouseEvent *event)
 {
 	printf("Mouse Press\n");
 	mLastPos = event->pos();
+	mDragPos = event->pos();
 
 	mButtons |= event->buttons();
 	update();
@@ -267,6 +268,9 @@ void ViewportWidget::mouseMoveEvent(QMouseEvent *event)
 	int dx = event->x() - mLastPos.x();
 	int dy = event->y() - mLastPos.y();
 
+	float dragDx = (float)event->x() - (float)mDragPos.x();
+	float dragDy = (float)event->y() - (float)mDragPos.y();
+
 	if (mButtons & Qt::MouseButton::LeftButton)
 	{
 
@@ -275,11 +279,12 @@ void ViewportWidget::mouseMoveEvent(QMouseEvent *event)
 	}
 	else if (mButtons & Qt::MouseButton::MidButton)
 	{
-		float kPanMult = 0.01f;
-		mCamera.Pan(-kPanMult * multiplier * dx, kPanMult * multiplier * dy);
+		float kPanMult = 0.1f;
+		mCamera.Pan(-kPanMult * multiplier * dragDx, kPanMult * multiplier * dragDy);
+		
 	}
 
-	
+	mDragPos = event->pos();
 	mLastPos = event->pos();
 
 	//qDebug("Mouse Move\n");
