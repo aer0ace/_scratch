@@ -1,9 +1,11 @@
 #include "Camera.h"
 #include <ObjectUtils.h>
+#include <QVector2D>
+#include <QtMath>
 
 QVector3D kAxisForward(0.0f, 0.0f, 1.0f);
 QVector3D kAxisUp(0.0f, 1.0f, 0.0f);
-QVector3D kAxisRight(1.0f, 1.0f, 0.0f);
+QVector3D kAxisRight(1.0f, 0.0f, 0.0f);
 
 /*
 	Design notes:
@@ -99,7 +101,7 @@ void Camera::UpdateTransform()
 	mTransform.setToIdentity();
 	mTransform.lookAt(mPosition, mTarget, upAxis);
 
-#if 1
+#if 0
 	mTransform.setToIdentity();
 	mTransform.translate(0, 0, -mZoom);
 	mTransform.rotate(mCamTilt, QVector3D(1.0f, 0.0f, 0.0f));
@@ -113,8 +115,13 @@ void Camera::Pan(const float& screenX, const float& screenY)
 	QVector3D up = kAxisUp * mTransform;
 	QVector3D right = kAxisRight * mTransform;
 
+	qDebug("Pan: %.3f %.3f", screenX, screenY);
+
 	mPosition += screenY * up;
 	mPosition += screenX * right;
+
+	mTarget += screenY * up;
+	mTarget += screenX * right;
 
 	UpdateTransform();
 }
@@ -127,9 +134,11 @@ void Camera::Tilt(float deltaAngle)
 	//QVector3D up(0.0f, 1.0f, 0.0f);
 	//QVector3D right = QVector3D::crossProduct(dirVec, up);
 
-	
+	QMatrix4x4 rotMat;
+	rotMat.setToIdentity();
+	rotMat.rotate(deltaAngle, 1.0f, 0.0f, 0.0f);
 
-
+	mPosition = rotMat * mPosition;
 
 	UpdateTransform();
 }
@@ -137,6 +146,12 @@ void Camera::Tilt(float deltaAngle)
 void Camera::Orbit(float deltaAngle)
 {
 	mCamOrbit += deltaAngle;
+
+	QMatrix4x4 rotMat;
+	rotMat.setToIdentity();
+	rotMat.rotate(deltaAngle, 0.0f, 1.0f, 0.0f);
+
+	mPosition = rotMat * mPosition;
 
 	UpdateTransform();
 }

@@ -152,12 +152,12 @@ void ViewportWidget::initializeGL()
 	// Store the vertex attribute bindings for the program.
 	SetupVertexAttributes();
 
-	mCamera.SetPosition(QVector3D(0, -0.5f, -1));
-
 	//// Light position is fixed.
 	mShaderProgram->setUniformValue(mLocLightPosition, QVector3D(0, 0, 70));
 
 	mShaderProgram->release();
+
+	mCamera.SetPosition(QVector3D(5.0f, 3.0f, 4.0f));
 }
 
 void ViewportWidget::SetupVertexAttributes()
@@ -276,13 +276,13 @@ void ViewportWidget::mouseMoveEvent(QMouseEvent *event)
 	else if (mButtons & Qt::MouseButton::MidButton)
 	{
 		float kPanMult = 0.01f;
-		mCamera.Pan(kPanMult * multiplier * dx, kPanMult * multiplier * dy);
+		mCamera.Pan(-kPanMult * multiplier * dx, kPanMult * multiplier * dy);
 	}
 
 	
 	mLastPos = event->pos();
 
-	printf("Mouse Move\n");
+	//qDebug("Mouse Move\n");
 
 	update();
 }
