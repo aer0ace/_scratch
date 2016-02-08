@@ -37,12 +37,14 @@ public:
 
 	const QVector3D& GetPosition() { return mPosition; };
 	const QVector3D& GetTarget() { return mTarget; };
+	const QVector3D& GetTiltAxis() { return mTiltAxis; }
 
 	const QMatrix4x4& GetTransform() { return mTransform; };
 
 	void Pan(const float& screenX, const float& screenY);
 	void Tilt(float deltaAngle);
 	void Orbit(float deltaAngle);
+	void TiltAndOrbit(float deltaTiltAngle, float deltaOrbitAngle);
 	void Zoom(float deltaDistance);
 
 private:
@@ -50,6 +52,7 @@ private:
 
 	QVector3D mPosition;
 	QVector3D mTarget;
+	QVector3D mTiltAxis;
 
 	bool mHasTarget;
 

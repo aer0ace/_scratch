@@ -68,6 +68,7 @@ Camera::Camera()
 	, mHasTarget(true)
 	, mCamTilt(0.0f)
 	, mCamOrbit(0.0f)
+	, mTiltAxis(1.0f, 0.0f, 0.0f)
 	, mZoom(3.0f)
 
 {
@@ -110,21 +111,28 @@ void Camera::UpdateTransform()
 
 void Camera::Pan(const float& screenX, const float& screenY)
 {
-	QVector3D up = kAxisUp * mTransform;
-	QVector3D right = kAxisRight * mTransform;
+	QMatrix4x4 rotMat = mTransform;
+	rotMat.setRow(3, QVector4D(0.0f, 0.0f, 0.0f, 1.0f));
+	QVector3D up = kAxisUp * rotMat;
+	QVector3D right = kAxisRight * rotMat;
 
 	up.normalize();
 	right.normalize();
 
 	//qDebug("Pan: %.3f %.3f", screenX, screenY);
 
-	mPosition += screenY * up;
-	mPosition += screenX * right;
+	QVector3D dirVecX = screenX * right;
+	QVector3D dirVecY = screenY * up;
 
-	qDebug("pos: %.3f %.3f %.3f", mPosition.x(), mPosition.y(), mPosition.z());
+	QVector3D dirVec = dirVecX + dirVecY;
+	
+	mPosition += dirVec;
+	mTarget += dirVec;
+	
+	qDebug("dirVec: %.3f %.3f %.3f", dirVec.x(), dirVec.y(), dirVec.z());
 
-	mTarget += screenY * up;
-	mTarget += screenX * right;
+	
+	
 
 	UpdateTransform();
 }
@@ -155,6 +163,27 @@ void Camera::Orbit(float deltaAngle)
 	rotMat.rotate(deltaAngle, 0.0f, 1.0f, 0.0f);
 
 	mPosition = rotMat * mPosition;
+
+	UpdateTransform();
+}
+
+void Camera::TiltAndOrbit(float deltaTiltAngle, float deltaOrbitAngle)
+{
+	QMatrix4x4 transform;
+	transform.setToIdentity();
+	transform.rotate(deltaOrbitAngle, 0.0f, 1.0f, 0.0f);
+
+	QMatrix4x4 tiltAxisTransform = mTransform;
+	tiltAxisTransform.setRow(3, QVector4D(0.0f, 0.0f, 0.0f, 1.0f));
+
+	mTiltAxis = kAxisRight * tiltAxisTransform;	// Rotates the right axis so that it serves as the axis of rotation for tilt.
+	mTiltAxis.setY(0.0f);
+
+	mTiltAxis.normalize();
+
+	transform.rotate(deltaTiltAngle, mTiltAxis.x(), 0.0f, mTiltAxis.z());
+
+	mPosition = mPosition * transform;
 
 	UpdateTransform();
 }

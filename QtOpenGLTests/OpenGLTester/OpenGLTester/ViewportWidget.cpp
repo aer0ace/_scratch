@@ -98,6 +98,7 @@ void ViewportWidget::Cleanup()
 	makeCurrent();
 
 	mVBO.destroy();
+	mVBO2.destroy();
 	if (mShaderProgram)
 	{
 		delete mShaderProgram;
@@ -150,7 +151,21 @@ void ViewportWidget::initializeGL()
 	mVBO.allocate(mGridObject.constData(), mGridObject.count() * sizeof(GLfloat));
 
 	// Store the vertex attribute bindings for the program.
-	SetupVertexAttributes();
+	SetupVertexAttributes(&mVBO);
+
+	mVAO2.create();
+	QOpenGLVertexArrayObject::Binder vaoBinder2(&mVAO2);
+
+	//mLineObject.Update(mCamera.GetTiltAxis(), QVector3D(0.0f, 1.0f, 0.0f));
+
+	mVBO2.create();
+
+	mVBO2.bind();
+	mVBO2.setUsagePattern(QOpenGLBuffer::UsagePattern::DynamicDraw);
+	//mVBO2.allocate(mLineObject.constData(), mLineObject.count() * sizeof(GLfloat));
+	mVBO2.allocate(mLineObject.count() * sizeof(GLfloat));
+
+	SetupVertexAttributes(&mVBO2);
 
 	//// Light position is fixed.
 	mShaderProgram->setUniformValue(mLocLightPosition, QVector3D(0, 0, 70));
@@ -160,15 +175,18 @@ void ViewportWidget::initializeGL()
 	mCamera.SetPosition(QVector3D(5.0f, 3.0f, 4.0f));
 }
 
-void ViewportWidget::SetupVertexAttributes()
+void ViewportWidget::SetupVertexAttributes(QOpenGLBuffer* vbo)
 {
-	mVBO.bind();
+	if (!vbo)
+		return;
+
+	vbo->bind();
 	QOpenGLFunctions *f = QOpenGLContext::currentContext()->functions();
 	f->glEnableVertexAttribArray(0);
 	f->glEnableVertexAttribArray(1);
 	f->glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), 0);
 	f->glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(GLfloat), reinterpret_cast<void *>(3 * sizeof(GLfloat)));
-	mVBO.release();
+	vbo->release();
 }
 
 //void ViewportWidget::paintEvent(QPaintEvent* paintEvent)
@@ -201,6 +219,8 @@ void ViewportWidget::DrawGL()
 	glEnable(GL_DEPTH_TEST);
 	glEnable(GL_CULL_FACE);
 
+
+
 	mWorld.setToIdentity();
 	////    m_world.rotate(180.0f - (m_xRot / 16.0f), 1, 0, 0);
 	////    m_world.rotate(m_yRot / 16.0f, 0, 1, 0);
@@ -211,12 +231,15 @@ void ViewportWidget::DrawGL()
 
 	QMatrix4x4 cameraTransform = mCamera.GetTransform();
 
+	QMatrix3x3 normalMatrix = mWorld.normalMatrix();
+
+#if 1
 	QOpenGLVertexArrayObject::Binder vaoBinder(&mVAO);
 	mShaderProgram->bind();
 	mShaderProgram->setUniformValue(mLocProjectionMatrix, mProjection);
 	//mShaderProgram->setUniformValue(mLocMvMatrix, mCamera /** mWorld*/);
 	mShaderProgram->setUniformValue(mLocMvMatrix, cameraTransform);
-	QMatrix3x3 normalMatrix = mWorld.normalMatrix();
+	
 	mShaderProgram->setUniformValue(mLocNormalMatrix, normalMatrix);
 
 	////glDrawArrays(GL_TRIANGLES, 0, m_logo.vertexCount());
@@ -226,6 +249,36 @@ void ViewportWidget::DrawGL()
 	glDrawArrays(GL_LINES, 0, mGridObject.vertexCount());
 
 	vaoBinder.release();
+#endif
+
+	mShaderProgram->bind();
+
+	QOpenGLVertexArrayObject::Binder vaoBinder2(&mVAO2);
+
+
+	
+
+
+
+	mVBO2.bind();
+
+	QVector3D unitVec(1.0f, 0.0f, 0.0f);
+	mLineObject.Update(mCamera.GetTiltAxis(), QVector3D(0.0f, 1.0f, 0.0f));
+	mVBO2.write(0, mLineObject.constData(), mLineObject.count() * sizeof(GLfloat));
+	mVBO2.release();
+
+	mShaderProgram->setUniformValue(mLocProjectionMatrix, mProjection);
+	//mShaderProgram->setUniformValue(mLocMvMatrix, mCamera /** mWorld*/);
+	mShaderProgram->setUniformValue(mLocMvMatrix, cameraTransform);
+	//QMatrix3x3 normalMatrix = mWorld.normalMatrix();
+	mShaderProgram->setUniformValue(mLocNormalMatrix, normalMatrix);
+
+
+
+	glDrawArrays(GL_LINES, 0, mLineObject.vertexCount());
+
+	vaoBinder2.release();
+	
 	mShaderProgram->release();
 
 	//update();	// force loop
@@ -273,8 +326,9 @@ void ViewportWidget::mouseMoveEvent(QMouseEvent *event)
 
 	if (mButtons & Qt::MouseButton::LeftButton)
 	{
-		mCamera.Tilt(multiplier * dy);
-		mCamera.Orbit(multiplier * dx);
+		//mCamera.Tilt(multiplier * dy);
+		//mCamera.Orbit(multiplier * dx);
+		mCamera.TiltAndOrbit(multiplier * dy, multiplier * dx);
 	}
 	else if (mButtons & Qt::MouseButton::MidButton)
 	{

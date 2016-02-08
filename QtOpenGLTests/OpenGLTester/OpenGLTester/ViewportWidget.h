@@ -37,7 +37,7 @@ protected:
 	void wheelEvent(QWheelEvent *event) Q_DECL_OVERRIDE;
 
 private:
-	void SetupVertexAttributes();
+	void SetupVertexAttributes(QOpenGLBuffer* vbo);
 
 	void DrawGL();
 
@@ -52,7 +52,9 @@ private:
 	QMatrix4x4 mWorld;
 
 	QOpenGLVertexArrayObject mVAO;
+	QOpenGLVertexArrayObject mVAO2;
 	QOpenGLBuffer mVBO;
+	QOpenGLBuffer mVBO2;
 
 	QOpenGLShaderProgram* mShaderProgram;
 
@@ -65,6 +67,7 @@ private:
 	Qt::MouseButtons mButtons;
 
 	GridObject mGridObject;
+	LineObject mLineObject;
 };
 
 #endif // VIEWPORTWIDGET_H

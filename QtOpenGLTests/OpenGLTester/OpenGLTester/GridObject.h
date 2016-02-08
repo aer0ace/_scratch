@@ -5,6 +5,23 @@
 #include <QVector>
 #include <QVector3D>
 
+class LineObject
+{
+public:
+	LineObject();
+	void Update(const QVector3D& pos, const QVector3D &n);
+	const GLfloat *constData() const { return mData.constData(); }
+	int count() const { return 12; }
+	int vertexCount() const { return 2; }
+
+private:
+	void add(const QVector3D &v, const QVector3D &n);
+	QVector<GLfloat> mData;
+	int mCount;
+
+	QVector3D mPos;
+};
+
 class GridObject
 {
 public:

@@ -1,5 +1,35 @@
 #include <GridObject.h>
 
+LineObject::LineObject()
+{
+	mData.resize(2 * 6);
+}
+
+void LineObject::Update(const QVector3D& pos, const QVector3D &n)
+{
+	mCount = 0;
+
+	add(QVector3D(0.0f, 0.0f, 0.0f), n);
+	add(pos, n);
+
+
+	mPos = pos;
+}
+
+void LineObject::add(const QVector3D &v, const QVector3D &n)
+{
+	GLfloat *p = mData.data() + mCount;
+	*p++ = v.x();
+	*p++ = v.y();
+	*p++ = v.z();
+	*p++ = n.x();
+	*p++ = n.y();
+	*p++ = n.z();
+	mCount += 6;
+}
+
+
+
 GridObject::GridObject(int32_t gridSize)
 	: m_count(0)
 	, mSize(gridSize)
