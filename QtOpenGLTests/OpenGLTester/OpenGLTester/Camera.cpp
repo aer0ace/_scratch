@@ -2,6 +2,7 @@
 #include <ObjectUtils.h>
 #include <QVector2D>
 #include <QtMath>
+#include <QTransform>
 
 QVector3D kAxisForward(0.0f, 0.0f, 1.0f);
 QVector3D kAxisUp(0.0f, 1.0f, 0.0f);
@@ -100,6 +101,8 @@ void Camera::UpdateTransform()
 	mTransform.setToIdentity();
 	mTransform.lookAt(mPosition, mTarget, kAxisUp);
 
+	Q_ASSERT_X(!qIsNaN(mTransform.row(3).x()), "Camera", "Bad Transform in Update");
+
 #if 0
 	mTransform.setToIdentity();
 	mTransform.translate(0, 0, -mZoom);
@@ -111,15 +114,23 @@ void Camera::UpdateTransform()
 
 void Camera::Pan(const float& screenX, const float& screenY)
 {
-	QMatrix4x4 rotMat = mTransform;
-	rotMat.setRow(3, QVector4D(0.0f, 0.0f, 0.0f, 1.0f));
-	QVector3D up = kAxisUp * rotMat;
-	QVector3D right = kAxisRight * rotMat;
+	// Using mTransform was resulting in eventual NaN errors when multiplying
+	// kAxisRight and kAxisUp by mTransform, which is odd, so this is an alternate
+	// method for generating the basis vectors, and probably less computationally
+	// intensive while being more straightforward.
 
-	up.normalize();
-	right.normalize();
+	Basis basis;
+	basis.Set((mTarget - mPosition), kAxisUp);
+	
+	QVector3D up;
+	QVector3D right;
+	QVector3D forward;
+	basis.Get(forward, right, up);
+	
+	Q_ASSERT_X(!qIsNaN(right.x()) && !qIsNaN(up.x()), "Camera", "Transform is bad");
 
-	//qDebug("Pan: %.3f %.3f", screenX, screenY);
+	qDebug("right: %.3f %.3f %.3f", right.x(), right.y(), right.z());
+	qDebug("up: %.3f %.3f %.3f", up.x(), up.y(), up.z());
 
 	QVector3D dirVecX = screenX * right;
 	QVector3D dirVecY = screenY * up;
