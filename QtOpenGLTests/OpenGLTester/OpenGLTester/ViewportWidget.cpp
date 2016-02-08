@@ -156,14 +156,10 @@ void ViewportWidget::initializeGL()
 	mVAO2.create();
 	QOpenGLVertexArrayObject::Binder vaoBinder2(&mVAO2);
 
-	//mLineObject.Update(mCamera.GetTiltAxis(), QVector3D(0.0f, 1.0f, 0.0f));
-
 	mVBO2.create();
-
 	mVBO2.bind();
 	mVBO2.setUsagePattern(QOpenGLBuffer::UsagePattern::DynamicDraw);
-	//mVBO2.allocate(mLineObject.constData(), mLineObject.count() * sizeof(GLfloat));
-	mVBO2.allocate(mLineObject.count() * sizeof(GLfloat));
+	mVBO2.allocate(mLineObject.count() * sizeof(GLfloat));	// Allocate without data if intended for dynamic drawing
 
 	SetupVertexAttributes(&mVBO2);
 
@@ -233,36 +229,22 @@ void ViewportWidget::DrawGL()
 
 	QMatrix3x3 normalMatrix = mWorld.normalMatrix();
 
-#if 1
-	QOpenGLVertexArrayObject::Binder vaoBinder(&mVAO);
+
 	mShaderProgram->bind();
 	mShaderProgram->setUniformValue(mLocProjectionMatrix, mProjection);
 	//mShaderProgram->setUniformValue(mLocMvMatrix, mCamera /** mWorld*/);
 	mShaderProgram->setUniformValue(mLocMvMatrix, cameraTransform);
-	
+
 	mShaderProgram->setUniformValue(mLocNormalMatrix, normalMatrix);
 
-	////glDrawArrays(GL_TRIANGLES, 0, m_logo.vertexCount());
-	////glDrawArrays(GL_LINES, 0, m_logo.vertexCount());
-	////glDrawArrays(GL_TRIANGLES, 0, mBasicShape.vertexCount());
-	//glDrawArrays(GL_LINES, 0, mBasicShape.vertexCount());
+
+	QOpenGLVertexArrayObject::Binder vaoBinder(&mVAO);
 	glDrawArrays(GL_LINES, 0, mGridObject.vertexCount());
-
 	vaoBinder.release();
-#endif
-
-	mShaderProgram->bind();
 
 	QOpenGLVertexArrayObject::Binder vaoBinder2(&mVAO2);
 
-
-	
-
-
-
 	mVBO2.bind();
-
-	QVector3D unitVec(1.0f, 0.0f, 0.0f);
 	mLineObject.Update(mCamera.GetTiltAxis(), QVector3D(0.0f, 1.0f, 0.0f));
 	mVBO2.write(0, mLineObject.constData(), mLineObject.count() * sizeof(GLfloat));
 	mVBO2.release();
@@ -270,10 +252,7 @@ void ViewportWidget::DrawGL()
 	mShaderProgram->setUniformValue(mLocProjectionMatrix, mProjection);
 	//mShaderProgram->setUniformValue(mLocMvMatrix, mCamera /** mWorld*/);
 	mShaderProgram->setUniformValue(mLocMvMatrix, cameraTransform);
-	//QMatrix3x3 normalMatrix = mWorld.normalMatrix();
 	mShaderProgram->setUniformValue(mLocNormalMatrix, normalMatrix);
-
-
 
 	glDrawArrays(GL_LINES, 0, mLineObject.vertexCount());
 
