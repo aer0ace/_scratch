@@ -246,12 +246,7 @@ void ViewportWidget::DrawGL()
 	mLineObject.Update(mCamera.GetTiltAxis(), QVector3D(0.0f, 1.0f, 0.0f));
 	mVBO2.write(0, mLineObject.constData(), mLineObject.count() * sizeof(GLfloat));
 	mVBO2.release();
-
-	mShaderProgram->setUniformValue(mLocProjectionMatrix, mProjection);
-	//mShaderProgram->setUniformValue(mLocMvMatrix, mCamera /** mWorld*/);
-	mShaderProgram->setUniformValue(mLocMvMatrix, cameraTransform);
-	mShaderProgram->setUniformValue(mLocNormalMatrix, normalMatrix);
-
+	
 	glDrawArrays(GL_LINES, 0, mLineObject.vertexCount());
 
 	vaoBinder2.release();
