@@ -7,6 +7,7 @@
 #include <qopenglwidget>
 #include <QMatrix4x4>
 #include <GridObject.h>
+#include <LineObject.h>
 #include <Camera.h>
 
 QT_FORWARD_DECLARE_CLASS(QOpenGLShaderProgram)
@@ -25,6 +26,8 @@ public:
 	QSize sizeHint() const Q_DECL_OVERRIDE;
 
 	void Cleanup();
+
+	void InitShader(const char* vertexProgram, const char* fragmentProgram);
 
 protected:
 	void initializeGL() Q_DECL_OVERRIDE;

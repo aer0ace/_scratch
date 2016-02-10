@@ -153,15 +153,17 @@ void ViewportWidget::initializeGL()
 	// Store the vertex attribute bindings for the program.
 	SetupVertexAttributes(&mVBO);
 
-	mVAO2.create();
-	QOpenGLVertexArrayObject::Binder vaoBinder2(&mVAO2);
+	//mVAO2.create();
+	//QOpenGLVertexArrayObject::Binder vaoBinder2(&mVAO2);
 
-	mVBO2.create();
-	mVBO2.bind();
-	mVBO2.setUsagePattern(QOpenGLBuffer::UsagePattern::DynamicDraw);
-	mVBO2.allocate(mLineObject.count() * sizeof(GLfloat));	// Allocate without data if intended for dynamic drawing
+	mLineObject.InitVertexArrays();
 
-	SetupVertexAttributes(&mVBO2);
+	//mVBO2.create();
+	//mVBO2.bind();
+	//mVBO2.setUsagePattern(QOpenGLBuffer::UsagePattern::DynamicDraw);
+	//mVBO2.allocate(mLineObject.count() * sizeof(GLfloat));	// Allocate without data if intended for dynamic drawing
+
+	//SetupVertexAttributes(&mVBO2);
 
 	//// Light position is fixed.
 	mShaderProgram->setUniformValue(mLocLightPosition, QVector3D(0, 0, 70));
@@ -235,21 +237,24 @@ void ViewportWidget::DrawGL()
 
 	mShaderProgram->setUniformValue(mLocNormalMatrix, normalMatrix);
 
+	{
+		QOpenGLVertexArrayObject::Binder vaoBinder(&mVAO);
+		glDrawArrays(GL_LINES, 0, mGridObject.vertexCount());
+		vaoBinder.release();
+	}
 
-	QOpenGLVertexArrayObject::Binder vaoBinder(&mVAO);
-	glDrawArrays(GL_LINES, 0, mGridObject.vertexCount());
-	vaoBinder.release();
-
-	QOpenGLVertexArrayObject::Binder vaoBinder2(&mVAO2);
-
-	mVBO2.bind();
 	mLineObject.Update(mCamera.GetTiltAxis(), QVector3D(0.0f, 1.0f, 0.0f));
-	mVBO2.write(0, mLineObject.constData(), mLineObject.count() * sizeof(GLfloat));
-	mVBO2.release();
-	
-	glDrawArrays(GL_LINES, 0, mLineObject.vertexCount());
 
-	vaoBinder2.release();
+	//{
+	//	QOpenGLVertexArrayObject::Binder vaoBinder2(&mVAO2);
+	//	mVBO2.bind();
+	//	mVBO2.write(0, mLineObject.GetConstData(), mLineObject.GetDataCount() * sizeof(GLfloat));
+	//	mVBO2.release();
+	//	glDrawArrays(GL_LINES, 0, mLineObject.GetVertexCount());
+	//	vaoBinder2.release();
+	//}
+
+	mLineObject.Draw();
 	
 	mShaderProgram->release();
 

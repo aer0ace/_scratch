@@ -177,7 +177,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GridObject.cpp" />
+    <ClCompile Include="LineObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="ObjectBase.cpp" />
     <ClCompile Include="ObjectUtils.cpp" />
     <ClCompile Include="opengltester.cpp" />
     <ClCompile Include="ViewportWidget.cpp" />
@@ -243,6 +245,8 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="LineObject.h" />
+    <ClInclude Include="ObjectBase.h" />
     <ClInclude Include="ObjectUtils.h" />
     <CustomBuild Include="Camera.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
