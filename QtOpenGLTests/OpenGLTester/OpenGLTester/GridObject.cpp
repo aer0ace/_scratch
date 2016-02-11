@@ -1,12 +1,11 @@
 #include <GridObject.h>
 
+
 GridObject::GridObject(int32_t gridSize)
-	: m_count(0)
+	: ObjectBase()
 	, mSize(gridSize)
 {
-	m_data.resize(2500 * 6);
-
-	Build();
+	mData.resize(2500 * 6);
 }
 
 void GridObject::Build()
@@ -22,27 +21,19 @@ void GridObject::Build()
 
 	while (xOffset <= mSize)
 	{
-		//quad(0.0f, 0.0f, length, 0.0f, length, length, 0.0f, length);
-		add(QVector3D(xOffset, 0.0f, zMin), kNormal);
-		add(QVector3D(xOffset, 0.0f, zMax), kNormal);
+		Add(QVector3D(xOffset, 0.0f, zMin), kNormal);
+		Add(QVector3D(xOffset, 0.0f, zMax), kNormal);
 
-		add(QVector3D(zMin, 0.0f, xOffset), kNormal);
-		add(QVector3D(zMax, 0.0f, xOffset), kNormal);
+		Add(QVector3D(zMin, 0.0f, xOffset), kNormal);
+		Add(QVector3D(zMax, 0.0f, xOffset), kNormal);
 
 		xOffset += 1.0f;
 	}
 }
 
-void GridObject::add(const QVector3D &v, const QVector3D &n)
+void GridObject::InitVertexArrays()
 {
-	GLfloat *p = m_data.data() + m_count;
-	*p++ = v.x();
-	*p++ = v.y();
-	*p++ = v.z();
-	*p++ = n.x();
-	*p++ = n.y();
-	*p++ = n.z();
-	m_count += 6;
+	ObjectBase::InitVertexArrays(GetConstData(), GetDataCount() * sizeof(GLfloat));
 }
 
 //void GridObject::quad(GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2, GLfloat x3, GLfloat y3, GLfloat x4, GLfloat y4)

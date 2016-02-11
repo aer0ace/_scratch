@@ -24,10 +24,10 @@ uint32_t ObjectBase::GetVertexCount() const
 
 void ObjectBase::Add(const QVector3D &v, const QVector3D &n)
 {
-	Q_ASSERT(mValueStride != 0);
+	//Q_ASSERT(mValueStride != 0);
 
-	if (mValueStride == 0)
-		return;
+	//if (mValueStride == 0)
+	//	return;
 	
 	GLfloat *p = mData.data() + mDataCount;
 	*p++ = v.x();
@@ -36,7 +36,7 @@ void ObjectBase::Add(const QVector3D &v, const QVector3D &n)
 	*p++ = n.x();
 	*p++ = n.y();
 	*p++ = n.z();
-	mDataCount += mValueStride;
+	mDataCount += 6;	// mValueStride;	// Ideally, we need to set the value from the stride, but right now we are in a catch-22 situation with data/format init
 }
 
 void ObjectBase::InitVertexArrays(const void* data, uint32_t size)

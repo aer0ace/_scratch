@@ -141,6 +141,8 @@ void ViewportWidget::initializeGL()
 	// implementations this is optional and support may not be present
 	// at all. Nonetheless the below code works in all cases and makes
 	// sure there is a VAO when one is needed.
+
+#if 0
 	mVAO.create();
 	QOpenGLVertexArrayObject::Binder vaoBinder(&mVAO);
 
@@ -152,6 +154,9 @@ void ViewportWidget::initializeGL()
 
 	// Store the vertex attribute bindings for the program.
 	SetupVertexAttributes(&mVBO);
+#endif
+	mGridObject.Build();
+	mGridObject.InitVertexArrays();
 
 	//mVAO2.create();
 	//QOpenGLVertexArrayObject::Binder vaoBinder2(&mVAO2);
@@ -237,11 +242,15 @@ void ViewportWidget::DrawGL()
 
 	mShaderProgram->setUniformValue(mLocNormalMatrix, normalMatrix);
 
+#if 0
 	{
 		QOpenGLVertexArrayObject::Binder vaoBinder(&mVAO);
 		glDrawArrays(GL_LINES, 0, mGridObject.vertexCount());
 		vaoBinder.release();
 	}
+#endif
+
+	mGridObject.Draw();
 
 	mLineObject.Update(mCamera.GetTiltAxis(), QVector3D(0.0f, 1.0f, 0.0f));
 
