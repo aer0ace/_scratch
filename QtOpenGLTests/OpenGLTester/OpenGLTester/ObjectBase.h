@@ -35,6 +35,20 @@ public:
 	virtual void PreDraw();
 
 protected:
+
+	/*
+		TODO: There's a catch-22 situation here, in that during initialization,
+		we want to set up the vertex attributes to initialize the stride size,
+		but we can't initialize the vbo until we know what size we want, but
+		we can't know the size until we know what we're building. And we can't
+		build it unless we know the stride (since the vertex data comprises 
+		what is described in the vertex attributes.
+
+		I guess we don't have to allocate the vbo before creating the vertex attribs
+		(assuming, this will be the next attempt). We only need to allocate the
+		vbo before knowing what the data is made up of.
+		
+	*/
 	// Default attribs: Position, Normal
 	virtual void SetupVertexAttributes(QOpenGLBuffer* vbo);
 	virtual void Add(const QVector3D &v, const QVector3D &n);	// TODO: This should be moved somewhere else, like a Builder class
