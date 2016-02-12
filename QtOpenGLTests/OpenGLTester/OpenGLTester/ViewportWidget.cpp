@@ -142,34 +142,13 @@ void ViewportWidget::initializeGL()
 	// at all. Nonetheless the below code works in all cases and makes
 	// sure there is a VAO when one is needed.
 
-#if 0
-	mVAO.create();
-	QOpenGLVertexArrayObject::Binder vaoBinder(&mVAO);
-
-	// Setup our vertex buffer object.
-	mVBO.create();
-	mVBO.bind();
-	//m_vbo.allocate(mBasicShape.constData(), mBasicShape.count() * sizeof(GLfloat));
-	mVBO.allocate(mGridObject.constData(), mGridObject.count() * sizeof(GLfloat));
-
-	// Store the vertex attribute bindings for the program.
-	SetupVertexAttributes(&mVBO);
-#endif
 	mGridObject.InitAttribs();
 	mGridObject.Build(false);
-
-	//mVAO2.create();
-	//QOpenGLVertexArrayObject::Binder vaoBinder2(&mVAO2);
 
 	mLineObject.InitAttribs();
 	mLineObject.Build(true);
 
-	//mVBO2.create();
-	//mVBO2.bind();
-	//mVBO2.setUsagePattern(QOpenGLBuffer::UsagePattern::DynamicDraw);
-	//mVBO2.allocate(mLineObject.count() * sizeof(GLfloat));	// Allocate without data if intended for dynamic drawing
 
-	//SetupVertexAttributes(&mVBO2);
 
 	//// Light position is fixed.
 	mShaderProgram->setUniformValue(mLocLightPosition, QVector3D(0, 0, 70));
@@ -243,26 +222,7 @@ void ViewportWidget::DrawGL()
 
 	mShaderProgram->setUniformValue(mLocNormalMatrix, normalMatrix);
 
-#if 0
-	{
-		QOpenGLVertexArrayObject::Binder vaoBinder(&mVAO);
-		glDrawArrays(GL_LINES, 0, mGridObject.vertexCount());
-		vaoBinder.release();
-	}
-#endif
-
 	mGridObject.Draw();
-
-
-
-	//{
-	//	QOpenGLVertexArrayObject::Binder vaoBinder2(&mVAO2);
-	//	mVBO2.bind();
-	//	mVBO2.write(0, mLineObject.GetConstData(), mLineObject.GetDataCount() * sizeof(GLfloat));
-	//	mVBO2.release();
-	//	glDrawArrays(GL_LINES, 0, mLineObject.GetVertexCount());
-	//	vaoBinder2.release();
-	//}
 
 	mLineObject.Update(mCamera.GetTiltAxis(), QVector3D(0.0f, 1.0f, 0.0f));
 	mLineObject.Draw();
