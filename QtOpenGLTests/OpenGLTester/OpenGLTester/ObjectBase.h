@@ -25,10 +25,9 @@ public:
 		mShaderProgram = shader;
 	}
 
-	void InitVertexArrays(const void* data, uint32_t size);
+	void InitAttribs();
 
-	
-	virtual void Build() = 0;
+	virtual void Build(bool dynamic);
 
 	virtual void Draw();
 
@@ -54,6 +53,8 @@ protected:
 	virtual void Add(const QVector3D &v, const QVector3D &n);	// TODO: This should be moved somewhere else, like a Builder class
 
 	void InitVertexData(const void* data, uint32_t size);
+
+	virtual void BuildVertexData() = 0;
 
 	virtual void InitVBOAttribs();
 

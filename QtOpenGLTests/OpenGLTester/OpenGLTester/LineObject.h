@@ -12,13 +12,10 @@ public:
 	LineObject();
 	void Update(const QVector3D& pos, const QVector3D &n);
 
-	virtual void Build();
-
-	void InitVertexArrays();
-
 	virtual void PreDraw();
 
 protected:
+	virtual void BuildVertexData();
 	virtual void InitVBOAttribs();
 private:
 

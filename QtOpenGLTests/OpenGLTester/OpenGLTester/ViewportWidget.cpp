@@ -155,13 +155,14 @@ void ViewportWidget::initializeGL()
 	// Store the vertex attribute bindings for the program.
 	SetupVertexAttributes(&mVBO);
 #endif
-	mGridObject.Build();
-	mGridObject.InitVertexArrays();
+	mGridObject.InitAttribs();
+	mGridObject.Build(false);
 
 	//mVAO2.create();
 	//QOpenGLVertexArrayObject::Binder vaoBinder2(&mVAO2);
 
-	mLineObject.InitVertexArrays();
+	mLineObject.InitAttribs();
+	mLineObject.Build(true);
 
 	//mVBO2.create();
 	//mVBO2.bind();
@@ -252,7 +253,7 @@ void ViewportWidget::DrawGL()
 
 	mGridObject.Draw();
 
-	mLineObject.Update(mCamera.GetTiltAxis(), QVector3D(0.0f, 1.0f, 0.0f));
+
 
 	//{
 	//	QOpenGLVertexArrayObject::Binder vaoBinder2(&mVAO2);
@@ -263,6 +264,7 @@ void ViewportWidget::DrawGL()
 	//	vaoBinder2.release();
 	//}
 
+	mLineObject.Update(mCamera.GetTiltAxis(), QVector3D(0.0f, 1.0f, 0.0f));
 	mLineObject.Draw();
 	
 	mShaderProgram->release();

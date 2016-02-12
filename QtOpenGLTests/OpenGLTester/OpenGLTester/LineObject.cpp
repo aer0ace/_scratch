@@ -13,12 +13,12 @@ void LineObject::Update(const QVector3D& pos, const QVector3D &n)
 	mPos = pos;
 	mNormal = n;
 
-	Build();
+	Build(true);
 
 
 }
 
-void LineObject::Build()
+void LineObject::BuildVertexData()
 {
 	mDataCount = 0;
 
@@ -30,11 +30,11 @@ void LineObject::InitVBOAttribs()
 {
 	mVBO.setUsagePattern(QOpenGLBuffer::UsagePattern::DynamicDraw);
 }
-
-void LineObject::InitVertexArrays()
-{
-	ObjectBase::InitVertexArrays(nullptr, kVertexCount * kValueStride);
-}
+//
+//void LineObject::InitVertexArrays()
+//{
+//	ObjectBase::InitVertexArrays(nullptr, kVertexCount * kValueStride);
+//}
 
 void LineObject::PreDraw()
 {

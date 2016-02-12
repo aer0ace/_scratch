@@ -13,9 +13,10 @@ public:
 
 	GridObject(int32_t gridSize = kDefaultGridSize);
 
-	void InitVertexArrays();
+	//void InitVertexArrays();
 
-	virtual void Build();
+protected:
+	virtual void BuildVertexData();
 
 private:
 

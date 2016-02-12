@@ -24,10 +24,10 @@ uint32_t ObjectBase::GetVertexCount() const
 
 void ObjectBase::Add(const QVector3D &v, const QVector3D &n)
 {
-	//Q_ASSERT(mValueStride != 0);
+	Q_ASSERT(mValueStride != 0);
 
-	//if (mValueStride == 0)
-	//	return;
+	if (mValueStride == 0)
+		return;
 	
 	GLfloat *p = mData.data() + mDataCount;
 	*p++ = v.x();
@@ -36,33 +36,34 @@ void ObjectBase::Add(const QVector3D &v, const QVector3D &n)
 	*p++ = n.x();
 	*p++ = n.y();
 	*p++ = n.z();
-	mDataCount += 6;	// mValueStride;	// Ideally, we need to set the value from the stride, but right now we are in a catch-22 situation with data/format init
+	mDataCount += mValueStride;	// Ideally, we need to set the value from the stride, but right now we are in a catch-22 situation with data/format init
 }
 
-void ObjectBase::InitVertexArrays(const void* data, uint32_t size)
+void ObjectBase::InitAttribs()
 {
 	mVAO.create();
-	QOpenGLVertexArrayObject::Binder vaoBinder2(&mVAO);
+	QOpenGLVertexArrayObject::Binder vaoBinder(&mVAO);
 
 	mVBO.create();
 	mVBO.bind();
 
 	InitVBOAttribs();
 	
-	InitVertexData(data, size);
-
 	// Store the vertex attribute bindings for the program.
 	SetupVertexAttributes(&mVBO);
 }
 
 void ObjectBase::InitVertexData(const void* data, uint32_t size)
 {
+	mVBO.bind();
+
 	if (data)
 		mVBO.allocate(data, size * sizeof(GLfloat));
 	else
 		mVBO.allocate(size * sizeof(GLfloat));	// Allocate without data if intended for dynamic drawing
-}
 
+	mVBO.release();
+}
 
 void ObjectBase::SetupVertexAttributes(QOpenGLBuffer* vbo)
 {
@@ -83,6 +84,12 @@ void ObjectBase::SetupVertexAttributes(QOpenGLBuffer* vbo)
 void ObjectBase::InitVBOAttribs()
 {
 	// Override and do some extra initing here.
+}
+
+void ObjectBase::Build(bool dynamic)
+{
+	BuildVertexData();
+	InitVertexData(dynamic ? nullptr : GetConstData(), GetDataCount());
 }
 
 void ObjectBase::PreDraw()

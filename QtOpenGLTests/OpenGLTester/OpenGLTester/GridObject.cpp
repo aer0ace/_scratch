@@ -8,7 +8,7 @@ GridObject::GridObject(int32_t gridSize)
 	mData.resize(2500 * 6);
 }
 
-void GridObject::Build()
+void GridObject::BuildVertexData()
 {
 	float length = 0.2f;
 
@@ -31,10 +31,10 @@ void GridObject::Build()
 	}
 }
 
-void GridObject::InitVertexArrays()
-{
-	ObjectBase::InitVertexArrays(GetConstData(), GetDataCount() * sizeof(GLfloat));
-}
+//void GridObject::InitVertexArrays()
+//{
+//	ObjectBase::InitVertexArrays(GetConstData(), GetDataCount() * sizeof(GLfloat));
+//}
 
 //void GridObject::quad(GLfloat x1, GLfloat y1, GLfloat x2, GLfloat y2, GLfloat x3, GLfloat y3, GLfloat x4, GLfloat y4)
 //{
