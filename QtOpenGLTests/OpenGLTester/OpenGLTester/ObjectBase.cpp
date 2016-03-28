@@ -5,6 +5,7 @@ ObjectBase::ObjectBase()
 	: mShaderProgram(nullptr)
 	, mDataCount(0)
 	, mValueStride(0)
+	, mRenderMode(GL_LINES)
 {
 	mData.resize(2500 * 6);	// Obviously not the greatest...
 }
@@ -12,6 +13,11 @@ ObjectBase::ObjectBase()
 ObjectBase::~ObjectBase()
 {
 
+}
+
+void ObjectBase::SetRenderMode(GLenum renderMode)
+{
+	mRenderMode = renderMode;
 }
 
 uint32_t ObjectBase::GetVertexCount() const
@@ -103,7 +109,7 @@ void ObjectBase::Draw()
 
 	PreDraw();
 
-	glDrawArrays(GL_LINES, 0, GetVertexCount());
+	glDrawArrays(mRenderMode, 0, GetVertexCount());
 	vaoBinder.release();
 }
 

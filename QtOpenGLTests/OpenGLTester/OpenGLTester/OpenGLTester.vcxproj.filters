@@ -74,6 +74,9 @@
     <ClCompile Include="LineObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="boxobject.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="opengltester.h">
@@ -89,6 +92,9 @@
       <Filter>Header Files</Filter>
     </CustomBuild>
     <CustomBuild Include="Camera.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="boxobject.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>

@@ -33,6 +33,8 @@ public:
 
 	virtual void PreDraw();
 
+	void SetRenderMode(GLenum renderMode);
+
 protected:
 
 	/*
@@ -67,6 +69,8 @@ protected:
 	QVector<GLfloat> mData;	// Vertex data
 	uint32_t mDataCount;			// Number of values (i.e. floats, indices, etc)
 	uint32_t mValueStride;		// Number of values to bypass to the next vertex
+
+	GLenum mRenderMode;
 };
 
 #endif // OBJECTBASE_H
