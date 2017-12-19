@@ -76,8 +76,8 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_OPENGL_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\GeneratedFiles;.;C:\Qt\5.5\msvc2013_64\include;.\GeneratedFiles\$(ConfigurationName);C:\Qt\5.5\msvc2013_64\include\QtCore;C:\Qt\5.5\msvc2013_64\include\QtGui;C:\Qt\5.5\msvc2013_64\include\QtOpenGL;C:\Qt\5.5\msvc2013_64\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_OPENGL_LIB;QT_WIDGETS_LIB;QT_QML_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;.;C:\Qt\5.5\msvc2013_64\include;.\GeneratedFiles\$(ConfigurationName);C:\Qt\5.5\msvc2013_64\include\QtCore;C:\Qt\5.5\msvc2013_64\include\QtGui;C:\Qt\5.5\msvc2013_64\include\QtOpenGL;C:\Qt\5.5\msvc2013_64\include\QtWidgets;$(QTDIR)\include\QtQml;$(QTDIR)\include\QtOpenGL;$(QTDIR)\include\QtCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -90,13 +90,13 @@
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>C:\Qt\5.5\msvc2013_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>C:\Qt\5.5\msvc2013_64\lib\qtmaind.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Cored.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Guid.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5OpenGLd.lib;opengl32.lib;glu32.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Widgetsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\Qt\5.5\msvc2013_64\lib\qtmaind.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Cored.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Guid.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5OpenGLd.lib;opengl32.lib;glu32.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Widgetsd.lib;Qt5Qmld.lib;Qt5OpenGLd.lib;Qt5Cored.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_OPENGL_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\GeneratedFiles;.;C:\Qt\5.5\msvc2013_64\include;.\GeneratedFiles\$(ConfigurationName);C:\Qt\5.5\msvc2013_64\include\QtCore;C:\Qt\5.5\msvc2013_64\include\QtGui;C:\Qt\5.5\msvc2013_64\include\QtOpenGL;C:\Qt\5.5\msvc2013_64\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_CORE_LIB;QT_GUI_LIB;QT_OPENGL_LIB;QT_WIDGETS_LIB;QT_QML_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;.;C:\Qt\5.10.0\msvc2013_64\include;.\GeneratedFiles\$(ConfigurationName);C:\Qt\5.10.0\msvc2013_64\include\QtCore;C:\Qt\5.10.0\msvc2013_64\include\QtGui;C:\Qt\5.10.0\msvc2013_64\include\QtOpenGL;C:\Qt\5.10.0\msvc2013_64\include\QtWidgets;$(QTDIR)\include\QtQml;$(QTDIR)\include\QtOpenGL;$(QTDIR)\include\QtCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <Optimization>Disabled</Optimization>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
@@ -107,15 +107,15 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
-      <AdditionalLibraryDirectories>C:\Qt\5.5\msvc2013_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\Qt\5.10.0\msvc2013_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>C:\Qt\5.5\msvc2013_64\lib\qtmaind.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Cored.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Guid.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5OpenGLd.lib;opengl32.lib;glu32.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Widgetsd.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\Qt\5.10.0\msvc2013_64\lib\qtmaind.lib;C:\Qt\5.10.0\msvc2013_64\lib\Qt5Cored.lib;C:\Qt\5.10.0\msvc2013_64\lib\Qt5Guid.lib;C:\Qt\5.10.0\msvc2013_64\lib\Qt5OpenGLd.lib;opengl32.lib;glu32.lib;C:\Qt\5.10.0\msvc2013_64\lib\Qt5Widgetsd.lib;Qt5Qmld.lib;Qt5OpenGLd.lib;Qt5Cored.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
-      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_OPENGL_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\GeneratedFiles;.;C:\Qt\5.5\msvc2013_64\include;.\GeneratedFiles\$(ConfigurationName);C:\Qt\5.5\msvc2013_64\include\QtCore;C:\Qt\5.5\msvc2013_64\include\QtGui;C:\Qt\5.5\msvc2013_64\include\QtOpenGL;C:\Qt\5.5\msvc2013_64\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_OPENGL_LIB;QT_WIDGETS_LIB;QT_QML_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;.;C:\Qt\5.5\msvc2013_64\include;.\GeneratedFiles\$(ConfigurationName);C:\Qt\5.5\msvc2013_64\include\QtCore;C:\Qt\5.5\msvc2013_64\include\QtGui;C:\Qt\5.5\msvc2013_64\include\QtOpenGL;C:\Qt\5.5\msvc2013_64\include\QtWidgets;$(QTDIR)\include\QtQml;$(QTDIR)\include\QtOpenGL;$(QTDIR)\include\QtCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat />
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -127,13 +127,13 @@
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>C:\Qt\5.5\msvc2013_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalDependencies>C:\Qt\5.5\msvc2013_64\lib\qtmain.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Core.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Gui.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5OpenGL.lib;opengl32.lib;glu32.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\Qt\5.5\msvc2013_64\lib\qtmain.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Core.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Gui.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5OpenGL.lib;opengl32.lib;glu32.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Widgets.lib;Qt5Qml.lib;Qt5OpenGL.lib;Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_OPENGL_LIB;QT_WIDGETS_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>.\GeneratedFiles;.;C:\Qt\5.5\msvc2013_64\include;.\GeneratedFiles\$(ConfigurationName);C:\Qt\5.5\msvc2013_64\include\QtCore;C:\Qt\5.5\msvc2013_64\include\QtGui;C:\Qt\5.5\msvc2013_64\include\QtOpenGL;C:\Qt\5.5\msvc2013_64\include\QtWidgets;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_OPENGL_LIB;QT_WIDGETS_LIB;QT_QML_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>.\GeneratedFiles;.;C:\Qt\5.5\msvc2013_64\include;.\GeneratedFiles\$(ConfigurationName);C:\Qt\5.5\msvc2013_64\include\QtCore;C:\Qt\5.5\msvc2013_64\include\QtGui;C:\Qt\5.5\msvc2013_64\include\QtOpenGL;C:\Qt\5.5\msvc2013_64\include\QtWidgets;$(QTDIR)\include\QtQml;$(QTDIR)\include\QtOpenGL;$(QTDIR)\include\QtCore;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat />
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <TreatWChar_tAsBuiltInType>true</TreatWChar_tAsBuiltInType>
@@ -145,7 +145,7 @@
       <OutputFile>$(OutDir)\$(ProjectName).exe</OutputFile>
       <AdditionalLibraryDirectories>C:\Qt\5.5\msvc2013_64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <GenerateDebugInformation>false</GenerateDebugInformation>
-      <AdditionalDependencies>C:\Qt\5.5\msvc2013_64\lib\qtmain.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Core.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Gui.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5OpenGL.lib;opengl32.lib;glu32.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Widgets.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>C:\Qt\5.5\msvc2013_64\lib\qtmain.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Core.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Gui.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5OpenGL.lib;opengl32.lib;glu32.lib;C:\Qt\5.5\msvc2013_64\lib\Qt5Widgets.lib;Qt5Qml.lib;Qt5OpenGL.lib;Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -189,16 +189,16 @@
     <CustomBuild Include="opengltester.h">
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing opengltester.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB "-I.\GeneratedFiles" "-I." "-IC:\Qt\5.5\msvc2013_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IC:\Qt\5.5\msvc2013_64\include\QtCore" "-IC:\Qt\5.5\msvc2013_64\include\QtGui" "-IC:\Qt\5.5\msvc2013_64\include\QtOpenGL" "-IC:\Qt\5.5\msvc2013_64\include\QtWidgets"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_QML_LIB  "-I.\GeneratedFiles" "-I." "-IC:\Qt\5.5\msvc2013_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IC:\Qt\5.5\msvc2013_64\include\QtCore" "-IC:\Qt\5.5\msvc2013_64\include\QtGui" "-IC:\Qt\5.5\msvc2013_64\include\QtOpenGL" "-IC:\Qt\5.5\msvc2013_64\include\QtWidgets" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtCore"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing opengltester.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB "-I.\GeneratedFiles" "-I." "-IC:\Qt\5.5\msvc2013_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IC:\Qt\5.5\msvc2013_64\include\QtCore" "-IC:\Qt\5.5\msvc2013_64\include\QtGui" "-IC:\Qt\5.5\msvc2013_64\include\QtOpenGL" "-IC:\Qt\5.5\msvc2013_64\include\QtWidgets"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_QML_LIB  "-I.\GeneratedFiles" "-I." "-IC:\Qt\5.10.0\msvc2013_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IC:\Qt\5.10.0\msvc2013_64\include\QtCore" "-IC:\Qt\5.10.0\msvc2013_64\include\QtGui" "-IC:\Qt\5.10.0\msvc2013_64\include\QtOpenGL" "-IC:\Qt\5.10.0\msvc2013_64\include\QtWidgets" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtCore"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing opengltester.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB "-I.\GeneratedFiles" "-I." "-IC:\Qt\5.5\msvc2013_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IC:\Qt\5.5\msvc2013_64\include\QtCore" "-IC:\Qt\5.5\msvc2013_64\include\QtGui" "-IC:\Qt\5.5\msvc2013_64\include\QtOpenGL" "-IC:\Qt\5.5\msvc2013_64\include\QtWidgets"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_QML_LIB  "-I.\GeneratedFiles" "-I." "-IC:\Qt\5.5\msvc2013_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IC:\Qt\5.5\msvc2013_64\include\QtCore" "-IC:\Qt\5.5\msvc2013_64\include\QtGui" "-IC:\Qt\5.5\msvc2013_64\include\QtOpenGL" "-IC:\Qt\5.5\msvc2013_64\include\QtWidgets" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtCore"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing opengltester.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB "-I.\GeneratedFiles" "-I." "-IC:\Qt\5.5\msvc2013_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IC:\Qt\5.5\msvc2013_64\include\QtCore" "-IC:\Qt\5.5\msvc2013_64\include\QtGui" "-IC:\Qt\5.5\msvc2013_64\include\QtOpenGL" "-IC:\Qt\5.5\msvc2013_64\include\QtWidgets"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_QML_LIB  "-I.\GeneratedFiles" "-I." "-IC:\Qt\5.5\msvc2013_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IC:\Qt\5.5\msvc2013_64\include\QtCore" "-IC:\Qt\5.5\msvc2013_64\include\QtGui" "-IC:\Qt\5.5\msvc2013_64\include\QtOpenGL" "-IC:\Qt\5.5\msvc2013_64\include\QtWidgets" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtCore"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
@@ -307,19 +307,19 @@
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Moc%27ing ViewportWidget.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB "-I.\GeneratedFiles" "-I." "-IC:\Qt\5.5\msvc2013_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IC:\Qt\5.5\msvc2013_64\include\QtCore" "-IC:\Qt\5.5\msvc2013_64\include\QtGui" "-IC:\Qt\5.5\msvc2013_64\include\QtOpenGL" "-IC:\Qt\5.5\msvc2013_64\include\QtWidgets"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_QML_LIB  "-I.\GeneratedFiles" "-I." "-IC:\Qt\5.5\msvc2013_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IC:\Qt\5.5\msvc2013_64\include\QtCore" "-IC:\Qt\5.5\msvc2013_64\include\QtGui" "-IC:\Qt\5.5\msvc2013_64\include\QtOpenGL" "-IC:\Qt\5.5\msvc2013_64\include\QtWidgets" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtCore"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing ViewportWidget.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB "-I.\GeneratedFiles" "-I." "-IC:\Qt\5.5\msvc2013_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IC:\Qt\5.5\msvc2013_64\include\QtCore" "-IC:\Qt\5.5\msvc2013_64\include\QtGui" "-IC:\Qt\5.5\msvc2013_64\include\QtOpenGL" "-IC:\Qt\5.5\msvc2013_64\include\QtWidgets"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_QML_LIB  "-I.\GeneratedFiles" "-I." "-IC:\Qt\5.10.0\msvc2013_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IC:\Qt\5.10.0\msvc2013_64\include\QtCore" "-IC:\Qt\5.10.0\msvc2013_64\include\QtGui" "-IC:\Qt\5.10.0\msvc2013_64\include\QtOpenGL" "-IC:\Qt\5.10.0\msvc2013_64\include\QtWidgets" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtCore"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Moc%27ing ViewportWidget.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB "-I.\GeneratedFiles" "-I." "-IC:\Qt\5.5\msvc2013_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IC:\Qt\5.5\msvc2013_64\include\QtCore" "-IC:\Qt\5.5\msvc2013_64\include\QtGui" "-IC:\Qt\5.5\msvc2013_64\include\QtOpenGL" "-IC:\Qt\5.5\msvc2013_64\include\QtWidgets"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_QML_LIB  "-I.\GeneratedFiles" "-I." "-IC:\Qt\5.5\msvc2013_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IC:\Qt\5.5\msvc2013_64\include\QtCore" "-IC:\Qt\5.5\msvc2013_64\include\QtGui" "-IC:\Qt\5.5\msvc2013_64\include\QtOpenGL" "-IC:\Qt\5.5\msvc2013_64\include\QtWidgets" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtCore"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing ViewportWidget.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB "-I.\GeneratedFiles" "-I." "-IC:\Qt\5.5\msvc2013_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IC:\Qt\5.5\msvc2013_64\include\QtCore" "-IC:\Qt\5.5\msvc2013_64\include\QtGui" "-IC:\Qt\5.5\msvc2013_64\include\QtOpenGL" "-IC:\Qt\5.5\msvc2013_64\include\QtWidgets"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_NO_DEBUG -DNDEBUG -DQT_CORE_LIB -DQT_GUI_LIB -DQT_OPENGL_LIB -DQT_WIDGETS_LIB -DQT_QML_LIB  "-I.\GeneratedFiles" "-I." "-IC:\Qt\5.5\msvc2013_64\include" "-I.\GeneratedFiles\$(ConfigurationName)\." "-IC:\Qt\5.5\msvc2013_64\include\QtCore" "-IC:\Qt\5.5\msvc2013_64\include\QtGui" "-IC:\Qt\5.5\msvc2013_64\include\QtOpenGL" "-IC:\Qt\5.5\msvc2013_64\include\QtWidgets" "-I$(QTDIR)\include\QtQml" "-I$(QTDIR)\include\QtOpenGL" "-I$(QTDIR)\include\QtCore"</Command>
     </CustomBuild>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
@@ -327,7 +327,7 @@
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties MocDir=".\GeneratedFiles\$(ConfigurationName)" UicDir=".\GeneratedFiles" RccDir=".\GeneratedFiles" lupdateOptions="" lupdateOnBuild="0" lreleaseOptions="" Qt5Version_x0020_x64="5.5" MocOptions="" />
+      <UserProperties MocDir=".\GeneratedFiles\$(ConfigurationName)" UicDir=".\GeneratedFiles" RccDir=".\GeneratedFiles" lupdateOptions="" lupdateOnBuild="0" lreleaseOptions="" Qt5Version_x0020_x64="msvc2013_64_qt510" MocOptions="" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>

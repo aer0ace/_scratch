@@ -1,6 +1,7 @@
 #ifndef OBJECTBASE_H
 #define OBJECTBASE_H
 
+#include <stdint.h>
 #include <QObject>
 #include <QOpenGL.h>
 #include <QVector>
